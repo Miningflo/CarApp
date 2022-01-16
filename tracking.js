@@ -1,4 +1,4 @@
-function follow(map){
+function follow(map, current_speed){
     const geolocation = new ol.Geolocation({
         // enableHighAccuracy must be set to true to have the heading value.
         trackingOptions: {
@@ -8,13 +8,13 @@ function follow(map){
     });
 
     geolocation.addEventListener('change', () => {
-        console.log(geolocation.getPosition());
+        current_speed.innerText = "" + (geolocation.getSpeed() * 3.6)
         map.getView().animate({
             center: geolocation.getPosition(),
             duration: 100,
             zoom: 20
         });
-    })
+    });
 
 
     const accuracyFeature = new ol.Feature();
