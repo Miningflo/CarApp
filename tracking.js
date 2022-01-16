@@ -15,7 +15,7 @@ function follow(map){
         new ol.style.Style({
             image: new ol.style.Icon({
                 src: 'arrow.png',
-                scale: 0.3
+                scale: 0.2,
             }),
         })
     );
