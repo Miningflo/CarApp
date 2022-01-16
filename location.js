@@ -24,7 +24,7 @@ function street_n_speed(namebox, maxspeed){
                     maxspeed.style.visibility = "visible";
                     maxspeed.innerText = "" + tags["maxspeed"];
                 }else{
-                    maxspeed.style.visibility = "hidden";
+                    maxspeed.style.visibility = "visible";
                 }
             })
             .catch(err => console.error(err))
