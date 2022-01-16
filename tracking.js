@@ -27,10 +27,11 @@ function follow(map){
     );
 
     geolocation.addEventListener('change', () => {
-        let speed = Math.round(geolocation.getSpeed() * 3.6);
-        current_speed.innerText = ((isNaN(speed)) ? "0" : "" + speed);
+        let speed = Math.round(geolocation.getSpeed() * 3.6) || 0;
+        current_speed.innerText = "" + speed;
+
         let max_speed = parseInt(speedbox.innerText);
-        if(!isNaN(max_speed) && !isNaN(speed) && speed > max_speed + 5){
+        if(!isNaN(max_speed) && speed > max_speed + 5){
             current_speed.classList.add("overspeed");
         }else{
             current_speed.classList.remove("overspeed");
@@ -39,8 +40,8 @@ function follow(map){
         map.getView().animate({
             center: geolocation.getPosition(),
             duration: 500,
-            zoom: ((!isNaN(speed)) ? -0.03 * speed + 20 : 20),
-            rotation: -geolocation.getHeading()
+            zoom: -0.03 * speed + 20,
+            rotation: ((speed > 5) ? -geolocation.getHeading() || 0 : 0)
         });
 
         const coordinates = geolocation.getPosition();
