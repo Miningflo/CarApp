@@ -1,4 +1,5 @@
 window.onload = function () {
+    window.scrollTo(0, 1);
     let namebox = document.getElementById("streetname");
     let maxspeed = document.getElementById("sign");
 
