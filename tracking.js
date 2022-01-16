@@ -1,6 +1,6 @@
 function follow(map){
     let current_speed = document.getElementById("travel");
-    let max_speed = parseInt(document.getElementById("sign").innerText);
+    let speedbox = document.getElementById("sign");
 
     const geolocation = new ol.Geolocation({
         // enableHighAccuracy must be set to true to have the heading value.
@@ -27,8 +27,9 @@ function follow(map){
     );
 
     geolocation.addEventListener('change', () => {
-        let speed = Math.round(geolocation.getSpeed() * 3.6)
+        let speed = Math.round(geolocation.getSpeed() * 3.6);
         current_speed.innerText = ((isNaN(speed)) ? "0" : "" + speed);
+        let max_speed = parseInt(speedbox.innerText);
         if(!isNaN(max_speed) && !isNaN(speed) && speed > max_speed + 5){
             current_speed.classList.add("overspeed");
         }else{
