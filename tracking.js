@@ -37,7 +37,7 @@ function follow(map){
 
         map.getView().animate({
             center: geolocation.getPosition(),
-            duration: 100,
+            duration: 500,
             zoom: ((!isNaN(speed)) ? -0.03 * speed + 20 : 20)
         });
 
