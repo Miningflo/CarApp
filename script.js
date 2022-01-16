@@ -15,7 +15,8 @@ window.onload = function () {
         target: 'map',
         layers: [
             new ol.layer.Tile({
-                source: new ol.source.OSM()
+                source: new ol.source.OSM(),
+                preload: Infinity
             })
         ],
         view: new ol.View({
@@ -39,6 +40,6 @@ window.onload = function () {
 
     street_n_speed(namebox, maxspeed);
     follow(map);
-}
+};
 
 
