@@ -8,7 +8,8 @@ function follow(map, current_speed){
     });
 
     geolocation.addEventListener('change', () => {
-        current_speed.innerText = "" + Math.round(geolocation.getSpeed() * 3.6)
+        let speed = Math.round(geolocation.getSpeed() * 3.6)
+        current_speed.innerText = ((isNaN(speed)) ? "0" : "" + speed);
         map.getView().animate({
             center: geolocation.getPosition(),
             duration: 100,
