@@ -26,13 +26,13 @@ function follow(map){
     positionFeature.setStyle(
         new ol.style.Style({
             image: new ol.style.Circle({
-                radius: 6,
+                radius: 20,
                 fill: new ol.style.Fill({
                     color: '#3399CC',
                 }),
                 stroke: new ol.style.Stroke({
                     color: '#fff',
-                    width: 2,
+                    width: 6,
                 }),
             }),
         })
