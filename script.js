@@ -2,7 +2,7 @@ window.onload = function () {
     setTimeout(function(){
         // This hides the address bar:
         window.scrollTo(0, 1);
-    }, 0);
+    }, 1000);
     let namebox = document.getElementById("streetname");
     let maxspeed = document.getElementById("sign");
     let current_speed = document.getElementById("travel")
