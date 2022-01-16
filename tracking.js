@@ -1,26 +1,13 @@
-function follow(map, current_speed){
+function follow(map){
+    let current_speed = document.getElementById("travel");
+    let max_speed = parseInt(document.getElementById("sign").innerText);
+
     const geolocation = new ol.Geolocation({
         // enableHighAccuracy must be set to true to have the heading value.
         trackingOptions: {
             enableHighAccuracy: true,
         },
         projection: map.getView().getProjection(),
-    });
-
-    geolocation.addEventListener('change', () => {
-        let speed = Math.round(geolocation.getSpeed() * 3.6)
-        current_speed.innerText = ((isNaN(speed)) ? "0" : "" + speed);
-        map.getView().animate({
-            center: geolocation.getPosition(),
-            duration: 100,
-            zoom: 20
-        });
-    });
-
-
-    const accuracyFeature = new ol.Feature();
-    geolocation.addEventListener('change:accuracyGeometry', function () {
-        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
 
     const positionFeature = new ol.Feature();
@@ -39,9 +26,28 @@ function follow(map, current_speed){
         })
     );
 
-    geolocation.addEventListener('change:position', function () {
+    geolocation.addEventListener('change', () => {
+        let speed = Math.round(geolocation.getSpeed() * 3.6)
+        current_speed.innerText = ((isNaN(speed)) ? "0" : "" + speed);
+        if(!isNaN(max_speed) && !isNaN(speed) && speed > max_speed + 5){
+            current_speed.classList.add("overspeed");
+        }else{
+            // current_speed.classList.remove("overspeed");
+        }
+        map.getView().animate({
+            center: geolocation.getPosition(),
+            duration: 100,
+            zoom: 20
+        });
+
         const coordinates = geolocation.getPosition();
         positionFeature.setGeometry(coordinates ? new ol.geom.Point(coordinates) : null);
+    });
+
+
+    const accuracyFeature = new ol.Feature();
+    geolocation.addEventListener('change:accuracyGeometry', function () {
+        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
 
     new ol.layer.Vector({

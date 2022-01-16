@@ -2,7 +2,7 @@ body{
     margin: 0;
 }
 
-#streetname {
+#banner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,17 +10,23 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 10vh;
     z-index: 5;
 
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+#streetname{
     color: white;
     font-weight: bold;
     font-size: 7vh;
     font-family: sans-serif;
     text-transform: capitalize;
     text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 0;
 }
 
 #sidebar{
@@ -78,6 +84,10 @@ body{
     font-size: 5vw;
     font-family: sans-serif;
     text-align: center;
+}
+
+.overspeed{
+    color: red;
 }
 
 #travel{
