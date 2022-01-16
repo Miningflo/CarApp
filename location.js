@@ -1,6 +1,6 @@
 function url_constructor(lat, long, radius) {
-    let base = "https://overpass-api.de/api/interpreter"
-    return base + "?data=[out:json];way[%22highway%22](around:" + radius + "," + lat + "," + long + ");out;"
+    let base = "https://overpass-api.de/api/interpreter";
+    return base + "?data=[out:json];way[%22highway%22](around:" + radius + "," + lat + "," + long + ");out%20qt;"
 }
 
 function street_n_speed(namebox, maxspeed){
