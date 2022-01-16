@@ -3,6 +3,7 @@ function url_constructor(lat, long, radius) {
     return base + "?data=[out:json][timeout:5];way[%22highway%22]" +
         "[\"highway\"!~\"cycleway\"]" +
         "[\"highway\"!~\"path\"]" +
+        "[\"highway\"!~\"footway\"]" +
         "(around:" + radius + "," + lat + "," + long + ");out%20qt;"
 }
 
@@ -10,17 +11,34 @@ function street_n_speed(namebox, maxspeed){
     console.log("Fetching location");
     let tag_order = ["name", "ref", "service", "highway"];
     navigator.geolocation.getCurrentPosition(location => {
-        console.log(location.coords.accuracy, location.coords.heading, location.coords.speed);
+        console.table({
+            latitude: location.coords.latitude,
+            longtitude: location.coords.longitude,
+            accuracy: location.coords.accuracy,
+            heading: location.coords.heading,
+            speed: location.coords.speed
+        });
         fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5))
             .then(res => res.json())
             .then(response => {
                 let tags = response["elements"][0]["tags"];
-                console.log(tags);
+                console.table(tags);
+
+                function resize_to_fit() {
+                    let fontSize = window.getComputedStyle(namebox).fontSize;
+                    namebox.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
+
+                    if(namebox.clientWidth >= window.innerWidth - 20){
+                        resize_to_fit();
+                    }
+                }
 
                 let found = false;
                 for(let key of tag_order){
                     if(key in tags){
                         namebox.innerText = tags[key].replace("_", " ");
+                        namebox.style.fontSize = '7vh'; // Default font size
+                        resize_to_fit();
                         found = true;
                         break;
                     }
@@ -38,7 +56,7 @@ function street_n_speed(namebox, maxspeed){
             })
             .catch(err => console.error(err))
             .finally(() => {
-                console.log("Starting next cycle");
+                console.log("Queuing next cycle");
                 setTimeout(street_n_speed, 1000, namebox, maxspeed);
             });
     }, err => {

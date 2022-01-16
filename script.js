@@ -1,9 +1,8 @@
 window.onload = function () {
-    document.documentElement.requestFullscreen();
     let wakeLock = null;
     try {
         wakeLock = navigator.wakeLock.request('screen').then(() => {
-            console.log('Wake Lock is active!');
+            console.warn('Wake Lock is active!');
         });
     } catch (err) {
         console.log(err);

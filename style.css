@@ -22,13 +22,9 @@ body{
 #streetname{
     color: white;
     font-weight: bold;
-    font-size: 7vh;
     font-family: sans-serif;
     text-transform: capitalize;
-    text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
-    min-width: 0;
 }
 
 #sidebar{
