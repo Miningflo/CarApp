@@ -13,15 +13,9 @@ function follow(map){
     const positionFeature = new ol.Feature();
     positionFeature.setStyle(
         new ol.style.Style({
-            image: new ol.style.Circle({
-                radius: 20,
-                fill: new ol.style.Fill({
-                    color: '#3399CC',
-                }),
-                stroke: new ol.style.Stroke({
-                    color: '#fff',
-                    width: 6,
-                }),
+            image: new ol.style.Icon({
+                src: 'arrow.png',
+                scale: 0.3
             }),
         })
     );
