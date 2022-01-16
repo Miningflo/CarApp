@@ -32,7 +32,7 @@ function follow(map){
         if(!isNaN(max_speed) && !isNaN(speed) && speed > max_speed + 5){
             current_speed.classList.add("overspeed");
         }else{
-            // current_speed.classList.remove("overspeed");
+            current_speed.classList.remove("overspeed");
         }
         map.getView().animate({
             center: geolocation.getPosition(),

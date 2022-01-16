@@ -14,10 +14,8 @@ window.onload = function () {
             center: ol.proj.fromLonLat([0, 0]),
             zoom: 1
         }),
-        controls : ol.control.defaults({
-            attribution : false,
-            zoom : false,
-        }),
+        controls : [],
+        interactions: []
     });
 
     var layer = new ol.layer.Vector({
