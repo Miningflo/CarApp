@@ -7,7 +7,7 @@ function street_n_speed(namebox, maxspeed){
     let tag_order = ["name", "ref", "service", "highway"];
     navigator.geolocation.getCurrentPosition(location => {
         console.log(location.coords.accuracy, location.coords.heading, location.coords.speed);
-        fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy))
+        fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 10))
             .then(res => res.json())
             .then(response => {
                 let tags = response["elements"][0]["tags"];
@@ -29,7 +29,7 @@ function street_n_speed(namebox, maxspeed){
             })
             .catch(err => console.error(err))
             .finally(() => {
-                console.log("Starting next cycle")
+                console.log("Starting next cycle");
                 setTimeout(street_n_speed, 5000, namebox, maxspeed);
             });
     })
