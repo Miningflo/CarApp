@@ -1,5 +1,13 @@
 window.onload = function () {
     document.documentElement.requestFullscreen();
+    let wakeLock = null;
+    try {
+        wakeLock = navigator.wakeLock.request('screen').then(() => {
+            console.log('Wake Lock is active!');
+        });
+    } catch (err) {
+        console.log(err);
+    }
     let namebox = document.getElementById("streetname");
     let maxspeed = document.getElementById("sign");
 
