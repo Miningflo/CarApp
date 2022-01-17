@@ -7,6 +7,11 @@ window.onload = function () {
     } catch (err) {
         console.log(err);
     }
+
+    document.body.addEventListener("dblclick", () => {
+        window.location.reload()
+    })
+
     let namebox = document.getElementById("streetname");
     let maxspeed = document.getElementById("sign");
 
