@@ -28,8 +28,8 @@ body{
 }
 
 #sidebar{
-    position: absolute;
-    bottom: -5vh;
+    position: fixed;
+    bottom: 3vh;
     left: 0;
 
     display: flex;
@@ -37,7 +37,7 @@ body{
     align-items: center;
     flex-direction: column;
 
-    height: 100vh;
+    z-index: 5;
     margin: 0 3vw;
 }
 
@@ -51,7 +51,6 @@ body{
 
     width:23vw;
     height:23vw;
-    z-index: 5;
     margin: 1vw;
 
     background: white;
@@ -70,7 +69,6 @@ body{
     flex-direction: column;
 
     width: 23vw;
-    z-index: 5;
     margin: 1vw;
 
     background: #f3f3f3;
