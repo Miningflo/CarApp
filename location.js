@@ -39,7 +39,7 @@ function street_n_speed(namebox, maxspeed){
             heading: location.coords.heading,
             speed: location.coords.speed
         });
-        fetchTimeout(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5), 5000)
+        fetchTimeout(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5), 7000)
             .then(res => res.json())
             .then(response => {
                 if(response["elements"].length > 0){
