@@ -31,6 +31,7 @@ window.onload = function () {
         interactions: []
     });
 
+    speedcams(map);
     street_n_speed(namebox, maxspeed);
     follow(map);
 };
