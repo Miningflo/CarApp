@@ -19,6 +19,14 @@ function url_constructor(lat, long, radius) {
         "(around:" + radius + "," + lat + "," + long + ");out%20qt;"
 }
 
+const fetchTimeout = (url, ms, { signal, ...options } = {}) => {
+    const controller = new AbortController();
+    const promise = fetch(url, { signal: controller.signal, ...options });
+    if (signal) signal.addEventListener("abort", () => controller.abort());
+    const timeout = setTimeout(() => controller.abort(), ms);
+    return promise.finally(() => clearTimeout(timeout));
+};
+
 let tag_order = ["name", "ref", "service", "highway"];
 
 function street_n_speed(namebox, maxspeed){
@@ -31,7 +39,7 @@ function street_n_speed(namebox, maxspeed){
             heading: location.coords.heading,
             speed: location.coords.speed
         });
-        fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5))
+        fetchTimeout(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5), 5000)
             .then(res => res.json())
             .then(response => {
                 if(response["elements"].length > 0){
@@ -77,6 +85,6 @@ function street_n_speed(namebox, maxspeed){
         setTimeout(street_n_speed, 2000, namebox, maxspeed);
     }, {
         enableHighAccuracy: true,
-        maximumAge: 0
+        maximumAge: 0,
     })
 }
