@@ -31,11 +31,12 @@ function follow(map){
             current_speed.classList.remove("overspeed");
         }
 
+        let rotation = map.getView().getRotation();
         map.getView().animate({
             center: geolocation.getPosition(),
             duration: 500,
             zoom: -0.03 * speed + 20,
-            rotation: ((speed > 5) ? -geolocation.getHeading() || 0 : 0)
+            rotation: ((speed > 5) ? -geolocation.getHeading() || rotation : rotation)
         });
 
         const coordinates = geolocation.getPosition();

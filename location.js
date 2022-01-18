@@ -7,13 +7,14 @@ function url_constructor(lat, long, radius) {
         "(around:" + radius + "," + lat + "," + long + ");out%20qt;"
 }
 
+let tag_order = ["name", "ref", "service", "highway"];
+
 function street_n_speed(namebox, maxspeed){
     console.log("Fetching location");
-    let tag_order = ["name", "ref", "service", "highway"];
     navigator.geolocation.getCurrentPosition(location => {
         console.table({
             latitude: location.coords.latitude,
-            longtitude: location.coords.longitude,
+            longitude: location.coords.longitude,
             accuracy: location.coords.accuracy,
             heading: location.coords.heading,
             speed: location.coords.speed
@@ -21,36 +22,36 @@ function street_n_speed(namebox, maxspeed){
         fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5))
             .then(res => res.json())
             .then(response => {
-                let tags = response["elements"][0]["tags"];
-                console.table(tags);
+                if(response["elements"].length > 0){
+                    let tags = response["elements"][0]["tags"];
+                    console.table(tags);
 
-                function resize_to_fit() {
-                    let fontSize = window.getComputedStyle(namebox).fontSize;
-                    namebox.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
+                    function resize_to_fit() {
+                        let fontSize = window.getComputedStyle(namebox).fontSize;
+                        namebox.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
 
-                    if(namebox.clientWidth >= window.innerWidth - 20){
-                        resize_to_fit();
+                        if(namebox.clientWidth >= window.innerWidth - 20){
+                            resize_to_fit();
+                        }
                     }
-                }
 
-                let found = false;
-                for(let key of tag_order){
-                    if(key in tags){
-                        namebox.innerText = tags[key].replace("_", " ");
-                        namebox.style.fontSize = '7vh'; // Default font size
-                        resize_to_fit();
-                        found = true;
-                        break;
+                    for(let key of tag_order){
+                        if(key in tags){
+                            namebox.innerText = tags[key].replace("_", " ");
+                            namebox.style.fontSize = '7vh'; // Default font size
+                            resize_to_fit();
+                            break;
+                        }
                     }
-                }
-                if(!found){
-                    namebox.innerText = "";
-                }
 
-                if("maxspeed" in tags){
-                    maxspeed.style.visibility = "visible";
-                    maxspeed.innerText = "" + tags["maxspeed"];
+                    if("maxspeed" in tags){
+                        maxspeed.style.visibility = "visible";
+                        maxspeed.innerText = "" + tags["maxspeed"];
+                    }else{
+                        maxspeed.style.visibility = "hidden";
+                    }
                 }else{
+                    namebox.innerText = "";
                     maxspeed.style.visibility = "hidden";
                 }
             })
