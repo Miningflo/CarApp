@@ -4,12 +4,22 @@ function url_constructor(lat, long, radius) {
         "[\"highway\"!~\"cycleway\"]" +
         "[\"highway\"!~\"path\"]" +
         "[\"highway\"!~\"footway\"]" +
+        "[\"highway\"!~\"steps\"]" +
+        "[\"highway\"!~\"pedestrian\"]" +
+        "[\"highway\"!~\"escape\"]" +
+        "[\"highway\"!~\"busway\"]" +
+        "[\"highway\"!~\"bridleway\"]" +
+        "[\"highway\"!~\"corridor\"]" +
+        "[\"highway\"!~\"construction\"]" +
+        "[\"highway\"!~\"proposed\"]" +
+        "[\"highway\"!~\"elevator\"]" +
+        "[\"highway\"!~\"emergency_bay\"]" +
+        "[\"highway\"!~\"platform\"]" +
+        "[!\"railway\"]" +
         "(around:" + radius + "," + lat + "," + long + ");out%20qt;"
 }
 
 let tag_order = ["name", "ref", "service", "highway"];
-
-// let position;
 
 function street_n_speed(namebox, maxspeed){
     console.log("Fetching location");
@@ -21,7 +31,6 @@ function street_n_speed(namebox, maxspeed){
             heading: location.coords.heading,
             speed: location.coords.speed
         });
-        // position = location;
         fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5))
             .then(res => res.json())
             .then(response => {
