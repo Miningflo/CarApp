@@ -9,6 +9,8 @@ function url_constructor(lat, long, radius) {
 
 let tag_order = ["name", "ref", "service", "highway"];
 
+// let position;
+
 function street_n_speed(namebox, maxspeed){
     console.log("Fetching location");
     navigator.geolocation.getCurrentPosition(location => {
@@ -19,6 +21,7 @@ function street_n_speed(namebox, maxspeed){
             heading: location.coords.heading,
             speed: location.coords.speed
         });
+        // position = location;
         fetch(url_constructor(location.coords.latitude, location.coords.longitude, location.coords.accuracy + 5))
             .then(res => res.json())
             .then(response => {
